@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 
 //route import
 import authRoutes from './routes/user.js';
-
+import booksRoutes from './routes/book.js';
 
 //DB CONNECT && CONFIG
 const app = express();
@@ -34,7 +34,7 @@ app.use(cors());
 
 //ROUTES
 app.use('/api/auth', authRoutes);
-
+app.use('/api/books', booksRoutes);
 
 
 // SERVER RUN
