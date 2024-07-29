@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 //route import
 import authRoutes from './routes/user.js';
 
+
 //DB CONNECT && CONFIG
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(cors());
 
 //ROUTES
 app.use('/api/auth', authRoutes);
+
 
 
 // SERVER RUN
