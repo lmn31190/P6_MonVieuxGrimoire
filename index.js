@@ -5,6 +5,9 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
+//route import
+import authRoutes from './routes/user.js';
+
 //DB CONNECT && CONFIG
 const app = express();
 
@@ -27,6 +30,9 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
+
+//ROUTES
+app.use('/api/auth', authRoutes);
 
 
 // SERVER RUN
