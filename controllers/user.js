@@ -16,9 +16,9 @@ export const register = (req, res) => {
         // Add MongoDB BDD
         user.save()
           .then(() => res.status(201).json({ message: 'Votre compte à bien été crée !' }))
-          .catch(error => res.status(400).json({ error }));
+          .catch(err => res.status(400).json({ err }));
       })
-      .catch(error => res.status(500).json({ error }));
+      .catch(err => res.status(500).json({ err }));
 };
 
 // POST => Connexion
@@ -45,7 +45,7 @@ export const login = (req, res) => {
                         )
                     });
                 })
-                .catch(error => res.status(500).json({ error }));
+                .catch(err => res.status(500).json({ err }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(err => res.status(500).json({ err }));
 };

@@ -10,7 +10,7 @@ export const addBook = (req, res) => {
     // Add in MongoDB BDD
     book.save()
         .then(() => { res.status(201).json({ message: 'Votre livre à bien été crée !' }) })
-        .catch(error => { res.status(400).json( { error }) })
+        .catch(err => { res.status(400).json( { err }) })
 };
 
 
@@ -18,5 +18,12 @@ export const addBook = (req, res) => {
 export const getBooks = (req, res) => {
     Book.find()
         .then(books => res.status(200).json(books))
-        .catch(error => res.status(404).json({ error }));
+        .catch(err => res.status(404).json({ err }));
+};
+
+// GET => get ONE Book
+export const getBook = (req, res) => {
+    Book.findOne({ _id: req.params.id })
+        .then(book => res.status(200).json(book))
+        .catch(err => res.status(404).json({ err }));
 };
