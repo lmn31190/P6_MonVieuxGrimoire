@@ -29,7 +29,7 @@ export const login = (req, res) => {
             if (!user) {
                 return res.status(401).json({ error: 'Utilisateur inconnue !' });
             }
-            // Comparaison du mot de passe entré avec le hash de la base de données
+            // Vérif password
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {

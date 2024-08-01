@@ -4,6 +4,8 @@ import "dotenv/config";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import path from "path";
+import { fileURLToPath } from 'url';
 
 //route import
 import authRoutes from './routes/user.js';
@@ -31,6 +33,10 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 //ROUTES
 app.use('/api/auth', authRoutes);

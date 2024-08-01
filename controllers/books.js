@@ -2,11 +2,9 @@ import Book from '../models/book.js';
 
 // POST => add new Book
 export const addBook = (req, res) => {
-    const bookObject = JSON.parse(req.body.book);
     const book = new Book({
         ...bookObject,
-        userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        imageUrl: `${process.env.URL}/images/${req.file.filename}`,
         averageRating: bookObject.ratings[0].grade
     });
     // Add in MongoDB BDD
