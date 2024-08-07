@@ -2,40 +2,46 @@ import Book from "../models/book.js";
 import fs from "fs";
 
 // POST => add new Book
-export const addBook = (req, res) => {
-  const bookObject = JSON.parse(req.body.book);
-  delete bookObject._id;
-  delete bookObject._userId;
-  const book = new Book({
-    ...bookObject,
-    imageUrl: `${process.env.URL}/images/resized_${req.file.filename}`,
-    averageRating: bookObject.ratings[0].grade,
-  });
-  // Add in MongoDB BDD
-  book
-    .save()
-    .then(() => {
-      res.status(201).json({ message: "Votre livre à bien été crée !" });
-    })
-    .catch((err) => {
-      res.status(400).json({ err });
+export const addBook = async (req, res) => {
+  try {
+    const bookData = JSON.parse(req.body.book);
+    delete bookData._id;
+    delete bookData._userId;
+    const book = new Book({
+      ...bookData,
+      imageUrl: `${process.env.URL}/images/resized_${req.file.filename}`,
+      averageRating: bookData.ratings[0].grade,
     });
+
+    await book.save();
+    res.status(201).json({ message: "Votre livre a été créé avec succès !" });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 };
 
 // GET => get All Books
-export const getBooks = (req, res) => {
-  Book.find()
-    .then((books) => res.status(200).json(books))
-    .catch((err) => res.status(404).json({ err }));
+export const getBooks = async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
 };
 
 // GET => get ONE Book
-export const getBook = (req, res) => {
-  Book.findOne({ _id: req.params.id })
-    .then((book) => res.status(200).json(book))
-    .catch((err) => res.status(404).json({ err }));
+export const getBook = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+      return res.status(404).json({ message: 'Livre non trouvé' });
+    }
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
 };
-
 export const deleteBook = async (req, res) => {
     try {
       const book = await Book.findById(req.params.id);
