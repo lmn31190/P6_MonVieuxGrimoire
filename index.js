@@ -14,9 +14,9 @@ import booksRoutes from './routes/book.js';
 //DB CONNECT && CONFIG
 const app = express();
 
-const connect = async () => {
+const connect = () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDB");
   } catch (err) {
     throw err;
@@ -36,7 +36,7 @@ app.use(cors());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //ROUTES
 app.use('/api/auth', authRoutes);
