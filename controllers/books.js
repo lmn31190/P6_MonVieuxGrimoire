@@ -9,14 +9,14 @@ export const addBook = async (req, res) => {
     delete bookData._userId;
     const book = new Book({
       ...bookData,
-      imageUrl: `${process.env.URL}/images/resized_${req.file.filename}`,
+      imageUrl: `${process.env.URL}/images/optimized_${req.file.filename}`,
       averageRating: bookData.ratings[0].grade,
     });
 
     await book.save();
     res.status(201).json({ message: "Votre livre a été créé avec succès !" });
-  } catch (error) {
-    res.status(400).json({ error });
+  } catch (err) {
+    res.status(400).json({ err });
   }
 };
 
@@ -25,8 +25,8 @@ export const getBooks = async (req, res) => {
   try {
     const books = await Book.find();
     res.status(200).json(books);
-  } catch (error) {
-    res.status(404).json({ error });
+  } catch (err) {
+    res.status(404).json({ err });
   }
 };
 
@@ -38,8 +38,8 @@ export const getBook = async (req, res) => {
       return res.status(404).json({ message: 'Livre non trouvé' });
     }
     res.status(200).json(book);
-  } catch (error) {
-    res.status(404).json({ error });
+  } catch (err) {
+    res.status(404).json({ err });
   }
 };
 export const deleteBook = async (req, res) => {
@@ -56,18 +56,18 @@ export const deleteBook = async (req, res) => {
       const filename = book.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, async (err) => {
         if (err) {
-          return res.status(500).json({ error: err.message });
+          return res.status(500).json({ err: err.message });
         }
   
         try {
           await Book.deleteOne({ _id: req.params.id });
           res.status(200).json({ message: 'Livre supprimé !' });
-        } catch (deleteError) {
-          res.status(400).json({ error: deleteError.message });
+        } catch (err) {
+          res.status(400).json({ err: err.message });
         }
       });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+    } catch (err) {
+      res.status(500).json({ err: err.message });
     }
   };
   

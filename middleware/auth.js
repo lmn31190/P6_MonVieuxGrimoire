@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-// Middleware d'authentification
 export const authMiddleware = (req, res, next) => {
     try {
         // Récupération du token
@@ -9,6 +8,7 @@ export const authMiddleware = (req, res, next) => {
 
         if (!token) {
             return res.status(401).json({ error: 'Token manquant' });
+            
         }
 
         // Vérification du token
@@ -17,7 +17,8 @@ export const authMiddleware = (req, res, next) => {
         // Ajout de l'ID utilisateur à la requête
         req.auth = { userId: decodedToken.userId };
         next();
-    } catch (error) {
-        res.status(401).json({ error: 'Requête non authentifiée' });
+    } catch (err) {
+        res.status(401).json({ err: 'Requête non authentifiée' });
+        console.log(err);
     }
 };
