@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   addBook,
+  addRating,
   deleteBook,
   getBook,
   getBooks,
@@ -17,5 +18,6 @@ router.get("/:id", getBook); //One Book
 router.post("/", upload, resizeImage, addBook); // Create
 router.delete("/:id", authMiddleware, deleteBook); // Delete
 router.put("/:id", authMiddleware, upload, resizeImage, updateBook); // Update
+router.post('/:id/rating', authMiddleware, addRating); // add Rate
 
 export default router;
