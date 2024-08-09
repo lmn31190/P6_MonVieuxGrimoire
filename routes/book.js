@@ -7,6 +7,7 @@ import {
   getBook,
   getBooks,
   updateBook,
+  bestRate,
 } from "../controllers/books.js";
 import upload, { resizeImage } from "../middleware/upload.js";
 import { authMiddleware } from "../middleware/auth.js";
@@ -14,6 +15,7 @@ import { authMiddleware } from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/", getBooks); //All Books
+router.get('/bestrating', bestRate); // bestrate
 router.get("/:id", getBook); //One Book
 router.post("/", upload, resizeImage, addBook); // Create
 router.delete("/:id", authMiddleware, deleteBook); // Delete

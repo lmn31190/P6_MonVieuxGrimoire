@@ -113,22 +113,21 @@ export const updateBook = async (req, res) => {
   }
 };
 
-
 // POST => add Rate
 export const addRating = async (req, res) => {
   const { rating } = req.body;
 
   if (rating < 0 || rating > 5) {
-    return res.status(400).json({ message: 'La note doit être entre 0 et 5' });
+    return res.status(400).json({ message: "La note doit être entre 0 et 5" });
   }
 
   try {
     const book = await Book.findById(req.params.id);
     if (!book) {
-      return res.status(404).json({ message: 'Livre inconnu' });
+      return res.status(404).json({ message: "Livre inconnu" });
     }
 
-    const userHasRated = book.ratings.some(r => r.userId === req.auth.userId);
+    const userHasRated = book.ratings.some((r) => r.userId === req.auth.userId);
     if (userHasRated) {
       return res.status(403).json({ message: "Vous n'êtes pas autorisé" });
     }
@@ -139,13 +138,25 @@ export const addRating = async (req, res) => {
     const totalGrades = book.ratings.reduce((acc, r) => acc + r.grade, 0);
     book.averageRating = totalGrades / book.ratings.length;
 
-    await Book.updateOne({ _id: req.params.id }, {
-      ratings: book.ratings,
-      averageRating: book.averageRating
-    });
+    await Book.updateOne(
+      { _id: req.params.id },
+      {
+        ratings: book.ratings,
+        averageRating: book.averageRating,
+      }
+    );
 
     res.status(201).json(book);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+export const bestRate = async (req, res) => {
+  try {
+    const topBooks = await Book.find().sort({ averageRating: -1 }).limit(3);
+    res.status(200).json(topBooks);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
   }
 };

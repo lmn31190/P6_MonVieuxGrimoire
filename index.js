@@ -33,16 +33,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.use((req, res, next) => {
-  // Accès à notre API depuis n'importe quelle origine
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  // Autorisation d'ajouter les headers mentionnés aux requêtes envoyées vers notre API
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  // Autorisation d'envoyer des requêtes avec les méthodes mentionnées
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  next();
-});
-
+app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/images', express.static(path.join(__dirname, 'images')));
