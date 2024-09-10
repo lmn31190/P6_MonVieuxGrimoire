@@ -26,7 +26,22 @@ const storage = multer.diskStorage({
 });
 
 
-export const upload = multer({ storage: storage }).single("image");
+// Filtrer les fichiers en fonction de leur type MIME
+const fileFilter = (req, file, callback) => {
+  if (type[file.mimetype]) {
+    // Si le type de fichier est valide, accepter le fichier
+    callback(null, true);
+  } else {
+    // Si le type de fichier est invalide, rejeter le fichier
+    callback(new Error("Invalid file type. Only JPG, PNG, and WEBP files are allowed."), false);
+  }
+};
+
+// Middleware multer avec filtre de fichier
+export const upload = multer({ 
+  storage: storage,
+  fileFilter: fileFilter // Ajout du filtre de fichier
+}).single("image");
 
 // Resize img
 export const resizeImage = (req, res, next) => {
