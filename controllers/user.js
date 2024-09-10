@@ -3,8 +3,18 @@ import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 
 // Create account
+// Fonction de validation de l'email
+const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
 export const register = async (req, res) => {
     try {
+        // Vérification si l'email est valide
+        if (!validateEmail(req.body.email)) {
+            return res.status(400).json({ error: 'Adresse email invalide' });
+        }
         // Chiffrement du mot de passe
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
