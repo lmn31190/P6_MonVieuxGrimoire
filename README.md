@@ -10,7 +10,7 @@ Suivez les étapes ci-dessous pour installer et configurer le projet localement 
    `git clone https://github.com/lmn31190/MonVieuxGrimoire.git`
 
 2. Accédez au répertoire du projet :\
-   `cd MonVieuxGrimoire-main`
+   `cd MonVieuxGrimoire`
 
 3. Installez les dépendances nécessaires avec la commande suivante :\
    `npm install`
