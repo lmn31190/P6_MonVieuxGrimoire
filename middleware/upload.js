@@ -5,7 +5,6 @@ import fs from "fs";
 
 const type = {
   "image/jpg": "jpg",
-  "image/webp": "webp",
   "image/png": "png",
   "image/jpeg": "jpg",
 };

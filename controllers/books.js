@@ -136,7 +136,7 @@ export const addRating = async (req, res) => {
     book.ratings.push(newRating);
 
     const totalGrades = book.ratings.reduce((acc, r) => acc + r.grade, 0);
-    book.averageRating = totalGrades / book.ratings.length;
+    book.averageRating = totalGrades / book.ratings.length.toFixed(1);
 
     await Book.updateOne(
       { _id: req.params.id },
