@@ -29,11 +29,13 @@ Avant de lancer le projet, assurez-vous d'avoir configuré votre base de donnée
 MONGO_URI = code URI MongoDB
 PORT = PORT DE CONNEXION
 JWT_SECRET = Random secrect key
+URL = url localhost
 ```
 
 -   Remplacez `PORT` par le port local sur lequel votre backend sera connecté (par défaut : 4000).
 -   Remplacez `MONGO_URI` par l'URL de connexion à votre base de données MongoDB, sous le format `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority.`
 -   Remplacez `JWT_SECRET` par une clé secrète de votre choix pour les tokens JWT.
+-   Remplacez `URL` par http://localhost:4000 ( selon le PORT de votre serveur ).
 
 ## Lancement du backend :
 
