@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/images
 env
 /.pnp
 .pnp.js
