@@ -46,5 +46,5 @@ app.use('/api/books', booksRoutes);
 // SERVER RUN
 app.listen(process.env.PORT, () => {
   connect();
-  console.log(`Server running on PORT ${process.env.PORT}`);
+  console.log(`Server running on PORT ${process.env.PORT || 4000}`);
 });
